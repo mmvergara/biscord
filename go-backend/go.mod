@@ -3,7 +3,7 @@ module github.com/mmvergara/biscord/go-backend
 go 1.22.2
 
 require (
-	github.com/go-chi/chi/v5 v5.0.12
+	github.com/go-chi/chi v1.5.5
 	go.mongodb.org/mongo-driver v1.15.0
 )
 
