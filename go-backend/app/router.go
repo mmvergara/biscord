@@ -18,9 +18,23 @@ func (a *App) loadRoutes() {
 		w.Write([]byte("Hello World!"))
 	})
 
+	router.Route("/v1", a.loadV1Routes)
+
 	// End of defining routes
 
 	// Assign the router to the app
 	a.router = router
 
+}
+
+
+
+
+// Load v1 routes
+func (a *App) loadV1Routes(router chi.Router) {
+
+	
+	
+	// router.Post("/register")
+	// router.Post("/login")
 }
