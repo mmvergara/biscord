@@ -3,13 +3,12 @@ package main
 import (
 	"context"
 	"log"
-
-	"github.com/mmvergara/biscord/go-backend/app"
 )
 
 func main() {
-
-	app := app.NewApp(app.LoadConfig())
+	cfg := LoadConfig()
+	
+	app := NewApp(cfg)
 
 	err := app.Start(context.TODO())
 	if err != nil {

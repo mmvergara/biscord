@@ -1,4 +1,4 @@
-package app
+package main
 
 import (
 	"context"
@@ -11,9 +11,10 @@ import (
 )
 
 type App struct {
-	router http.Handler
-	mdb *mongo.Client
 	config Config
+	mongoClient *mongo.Client
+	mdb *mongo.Database
+	router http.Handler
 }
 
 func NewApp(config Config) *App {
@@ -27,8 +28,9 @@ func NewApp(config Config) *App {
 
 
 	app := &App{
-		mdb: mongoClient,
 		config: config,
+		mongoClient: mongoClient,
+		mdb: mdb,
 	}
 
 	app.loadRoutes()
@@ -37,6 +39,8 @@ func NewApp(config Config) *App {
 	return app
 
 }
+
+
 
 func (a *App) Start (ctx context.Context) error {
 	server := &http.Server{
