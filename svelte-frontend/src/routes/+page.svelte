@@ -1,6 +1,5 @@
 <script lang="ts">
-  let email: string = "";
-  let password: string = "";
+
 </script>
 
 <main>
@@ -9,5 +8,4 @@
 </main>
 
 <style>
-  
 </style>
