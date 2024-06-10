@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	app := app.New(app.LoadConfig())
+	app := app.NewApp(app.LoadConfig())
 
 	err := app.Start(context.TODO())
 	if err != nil {
