@@ -7,5 +7,3 @@
   <a href="/auth/register">register</a>
 </main>
 
-<style>
-</style>
