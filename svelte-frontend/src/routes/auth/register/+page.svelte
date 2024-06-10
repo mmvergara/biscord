@@ -3,6 +3,17 @@
   let password: string = "";
   let displayName: string = "";
   let username: string = "";
+  let dateOfBirth: string = "";
+
+  function register() {
+    console.log({
+      email,
+      password,
+      displayName,
+      username,
+      dateOfBirth,
+    });
+  }
 </script>
 
 <h2 id="title">Biscord | Welcome back</h2>
@@ -10,21 +21,32 @@
 
 <!-- email -->
 <label for="email">EMAIL</label>
-<input bind:value={email} id="email" type="email" />
+<input bind:value={email} class="text-input" id="email" type="email" />
 <!-- displayname -->
 <label for="displayName">DISPLAY NAME</label>
-<input bind:value={displayName} id="displayName" type="text" />
+<input
+  bind:value={displayName}
+  class="text-input"
+  id="displayName"
+  type="text"
+/>
 
 <!-- username -->
 <label for="username">USERNAME</label>
-<input bind:value={username} id="username" type="text" />
+<input bind:value={username} class="text-input" id="username" type="text" />
 
 <!-- password -->
 <label for="password">PASSWORD</label>
-<input bind:value={password} id="password" type="password" />
-<button>Log In</button>
+<input bind:value={password} class="text-input" id="password" type="password" />
+
+<!-- dateOfBirth -->
+<label for="dateOfBirth">DATE OF BIRTH</label>
+<input bind:value={dateOfBirth} id="dateOfBirth" type="date" />
+
+<button on:click={register}>Register</button>
+
 <p id="auth-option">
-  Don't have an account? <a href="/signup">Sign up</a>
+  Already have an account?<a href="/auth/login">Login</a>
 </p>
 
 <style>
@@ -44,7 +66,7 @@
     color: #76abae;
   }
 
-  input {
+  .text-input {
     background-color: var(--bg-primary);
     padding: 1em;
     font-weight: bold;
@@ -52,6 +74,23 @@
     outline: none;
     border: none;
     border-radius: 0.125rem;
+  }
+
+  #dateOfBirth {
+    padding: 1em;
+    background-color: var(--bg-primary);
+    padding: 1em;
+    font-weight: bold;
+    color: #76abae;
+    outline: none;
+    border: none;
+    border-radius: 0.125rem;
+  }
+
+  #dateOfBirth::-webkit-calendar-picker-indicator {
+    background-color: #76abae;
+    padding: 1em;
+    border-radius: 4px;
   }
 
   button {
