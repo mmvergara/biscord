@@ -16,8 +16,11 @@ type App struct {
 	config Config
 }
 
-func New(config Config) *App {
+func NewApp(config Config) *App {
 	mongoClient, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(config.MongoDBAddr))
+	mdb := mongoClient.Database("biscord")
+
+
 	if err != nil {
 		panic(err)
 	}
