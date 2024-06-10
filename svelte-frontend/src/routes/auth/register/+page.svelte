@@ -6,6 +6,7 @@
   let dateOfBirth: string = "";
 
   function register() {
+    console.log("Registering...");
     console.log({
       email,
       password,
@@ -46,7 +47,7 @@
 <button on:click={register}>Register</button>
 
 <p id="auth-option">
-  Already have an account?<a href="/auth/login">Login</a>
+  Already have an account? <a href="/auth/login">Login</a>
 </p>
 
 <style>
