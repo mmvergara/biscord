@@ -4,43 +4,12 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="app.css" />
+    <title>Biscord</title>
     %sveltekit.head%
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito Sans"
-      rel="stylesheet"
-    />
-
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
-      :root {
-        --bg-primary: #161a20;
-        --bg-secondary: #222831;
-        --text-primary: #eeeeee;
-      }
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        font-family: "Nunito Sans", sans-serif;
-      }
-      body {
-        background-color: var(--bg-secondary);
-        color: #eeeeee;
-      }
-      .hidden {
-        visibility: hidden;
-      }
-    </style>
   </head>
 
   <body data-sveltekit-preload-data="hover">
-    <div id="content" class="hidden">
-      <div style="display: contents">%sveltekit.body%</div>
-    </div>
-    <script>
-      document.fonts.ready.then(function () {
-        document.getElementById("content").classList.remove("hidden");
-      });
-    </script>
+    <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>
