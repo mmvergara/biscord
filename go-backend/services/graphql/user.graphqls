@@ -1,7 +1,9 @@
 type User {
   id: ID!
-  firstName: String!
-  lastName: String!
+  username: String!
+  displayName: String!
+  email: String!
+  avatarUrl: String!
 }
 
 type Query {
