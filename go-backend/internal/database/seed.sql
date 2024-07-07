@@ -1,4 +1,8 @@
+-- Clear
+
+
 -- Users table
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id UUID PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
@@ -12,6 +16,7 @@ CREATE TABLE users (
 );
 
 -- Guilds table
+DROP TABLE IF EXISTS guilds;
 CREATE TABLE guilds (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -22,6 +27,7 @@ CREATE TABLE guilds (
 );
 
 -- Roles table
+DROP TABLE IF EXISTS roles;
 CREATE TABLE roles (
     id UUID PRIMARY KEY,
     guild_id UUID NOT NULL REFERENCES guilds(id),
@@ -34,6 +40,7 @@ CREATE TABLE roles (
 );
 
 -- Members table
+DROP TABLE IF EXISTS members;
 CREATE TABLE members (
     id UUID PRIMARY KEY,
     guild_id UUID NOT NULL REFERENCES guilds(id),
@@ -46,6 +53,7 @@ CREATE TABLE members (
 );
 
 -- Categories table
+DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
     id UUID PRIMARY KEY,
     guild_id UUID NOT NULL REFERENCES guilds(id),
@@ -56,6 +64,7 @@ CREATE TABLE categories (
 );
 
 -- Channels table
+DROP TABLE IF EXISTS channels;
 CREATE TABLE channels (
     id UUID PRIMARY KEY,
     guild_id UUID NOT NULL REFERENCES guilds(id),
@@ -69,6 +78,7 @@ CREATE TABLE channels (
 );
 
 -- Messages table
+DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
     id UUID PRIMARY KEY,
     channel_id UUID NOT NULL REFERENCES channels(id),
@@ -79,6 +89,7 @@ CREATE TABLE messages (
 );
 
 -- Reactions table
+DROP TABLE IF EXISTS reactions;
 CREATE TABLE reactions (
     message_id UUID NOT NULL REFERENCES messages(id),
     user_id UUID NOT NULL REFERENCES users(id),
@@ -88,6 +99,7 @@ CREATE TABLE reactions (
 );
 
 -- Invites table
+DROP TABLE IF EXISTS invites;
 CREATE TABLE invites (
     code VARCHAR(255) PRIMARY KEY,
     guild_id UUID NOT NULL REFERENCES guilds(id),
