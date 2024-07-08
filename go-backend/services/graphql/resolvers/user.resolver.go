@@ -6,7 +6,6 @@ package graph_resolvers
 
 import (
 	"context"
-	"fmt"
 
 	model "github.com/mmvergara/biscord/go-backend/models"
 	graph1 "github.com/mmvergara/biscord/go-backend/services/graphql/generated"
@@ -14,12 +13,13 @@ import (
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: User - user"))
+	// Get User By ID
 }
 
 // ID is the resolver for the id field.
 func (r *userResolver) ID(ctx context.Context, obj *model.User) (string, error) {
-	panic(fmt.Errorf("not implemented: ID - id"))
+	// Return ID as string
+	return obj.ID.String(), nil
 }
 
 // Query returns graph1.QueryResolver implementation.

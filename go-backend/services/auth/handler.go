@@ -19,3 +19,14 @@ func (h *Handler) SignIn(c echo.Context) error {
 
 	return c.HTML(200, "Sign In")
 }
+
+
+func (h *Handler) SignUp(c echo.Context) error {
+
+	return c.HTML(200, "Sign Up")
+}
+
+func (h *Handler) SignOut(c echo.Context) error {
+	
+	return c.HTML(200, "Sign Out")
+}

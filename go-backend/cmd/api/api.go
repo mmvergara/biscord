@@ -49,4 +49,8 @@ func (s *Server) Run() {
 		return nil
 	}) // graphql endpoint
 
+
+	e.Logger.Fatal(e.Start(s.addr))
+
+	
 }
