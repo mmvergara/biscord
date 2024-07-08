@@ -40,10 +40,6 @@
 <label for="password">PASSWORD</label>
 <input bind:value={password} class="text-input" id="password" type="password" />
 
-<!-- dateOfBirth -->
-<label for="dateOfBirth">DATE OF BIRTH</label>
-<input bind:value={dateOfBirth} id="dateOfBirth" type="date" />
-
 <button on:click={register}>Register</button>
 
 <p id="auth-option">
@@ -75,23 +71,6 @@
     outline: none;
     border: none;
     border-radius: 0.125rem;
-  }
-
-  #dateOfBirth {
-    padding: 1em;
-    background-color: var(--bg-primary);
-    padding: 1em;
-    font-weight: bold;
-    color: #76abae;
-    outline: none;
-    border: none;
-    border-radius: 0.125rem;
-  }
-
-  #dateOfBirth::-webkit-calendar-picker-indicator {
-    background-color: #76abae;
-    padding: 1em;
-    border-radius: 4px;
   }
 
   button {

@@ -1,21 +1,32 @@
 <script lang="ts">
   let email: string = "";
   let password: string = "";
+
+  function login() {
+    console.log("Logging in...");
+    console.log({
+      email,
+      password,
+    });
+    
+  }
 </script>
 
 <h2 id="title">Biscord | Welcome back</h2>
 <p id="caption">We're excited to see you again!</p>
 
-<!-- email -->
-<label for="email">EMAIL</label>
-<input bind:value={email} id="email" type="email" />
+<form on:submit={login}>
+  <!-- email -->
+  <label for="email">EMAIL</label>
+  <input bind:value={email} id="email" type="email" />
 
-<!-- password -->
-<label for="password">PASSWORD</label>
-<input bind:value={password} id="password" type="password" />
-<a href="/forgot-password" id="forgot-password">Forgot your password?</a>
+  <!-- password -->
+  <label for="password">PASSWORD</label>
+  <input bind:value={password} id="password" type="password" />
+  <a href="/forgot-password" id="forgot-password">Forgot your password?</a>
 
-<button>Log In</button>
+  <button on:click={login}>Log In</button>
+</form>
 <p id="auth-option">
   Don't have an account? <a href="/auth/register">Register</a>
 </p>
@@ -27,6 +38,12 @@
   #caption {
     text-align: center;
     color: #96b1b3;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   label {
