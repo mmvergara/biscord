@@ -1,12 +1,11 @@
 package config
 
-import (
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-)
+import "github.com/go-chi/cors"
 
-var CorsOptions = middleware.CORSWithConfig(middleware.CORSConfig{
-	AllowOrigins:     []string{"http://localhost:5173"},
-	AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+var CorsOptions = cors.Handler(cors.Options{
+	AllowedOrigins:   []string{"http://localhost:5173"},
+	AllowedMethods:   []string{"GET", "POST"},
+	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 	AllowCredentials: true,
+	MaxAge:           300,
 })

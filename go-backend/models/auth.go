@@ -3,7 +3,7 @@ package model
 type HashedPassword = string
 
 type SignInForm struct {
-	Username string         `json:"username"`
+	Email    string         `json:"email"`
 	Password HashedPassword `json:"password"`
 }
 

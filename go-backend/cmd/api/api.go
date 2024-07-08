@@ -1,10 +1,14 @@
 package api
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"github.com/jackc/pgx"
-	"github.com/labstack/echo/v4"
 	"github.com/mmvergara/biscord/go-backend/config"
 	"github.com/mmvergara/biscord/go-backend/services/auth"
 	graph_generated "github.com/mmvergara/biscord/go-backend/services/graphql/generated"
@@ -25,38 +29,39 @@ func NewServer(addr string, db *pgx.Conn) *Server {
 }
 
 func (s *Server) Run() {
-	e := echo.New()
+	r := chi.NewRouter()
 
-	e.Use(config.CorsOptions)
-	// e.Use(middleware.Logger())
+	// Middleware
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+
+	r.Use(config.CorsOptions)
 
 	userRepo := repo.NewUserRepo(s.db)
-
 	authHandler := auth.NewHandler(userRepo)
-
-	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "Hello, World!")
-	})
-
-	v1 := e.Group("/v1")
-	v1.GET("/", func(c echo.Context) error {
-		playground.Handler("GraphQL playground", "/v1/graph").ServeHTTP(c.Response(), c.Request())
-		return nil
-	})
-	v1.POST("/auth/sign-in", authHandler.SignIn)
-	v1.POST("/auth/sign-up", authHandler.SignUp)
-	// v1.POST("/auth/sign-out", s.Refresh)
-
 	srv := handler.NewDefaultServer(graph_generated.NewExecutableSchema(graph_generated.Config{Resolvers: &graph_resolvers.Resolver{}}))
 
-	v1.Use() // auth middleware
-	v1.Use() // data loader middleware
-	v1.POST("/graph", func(c echo.Context) error {
-		srv.ServeHTTP(c.Response(), c.Request())
-		return nil
-	}) // graphql endpoint
+	r.Get("/", s.HelloWorld)
 
-	e.Logger.Fatal(e.Start(s.addr))
+	r.Route("/v1", func(r chi.Router) {
+		r.Get("/", playground.Handler("GraphQL playground", "/v1/graph").ServeHTTP)
 
-	e.Start(s.addr)
+		r.Post("/auth/sign-in", authHandler.SignInHandler)
+		r.Post("/auth/sign-up", authHandler.SignUpHandler)
+
+		r.Group(func(r chi.Router) {
+			r.Use(authHandler.AuthMiddleware())
+			// r.Use(DataLoaderMiddleware)
+			r.Post("/graph", func(w http.ResponseWriter, r *http.Request) {
+				srv.ServeHTTP(w, r)
+			})
+		})
+	})
+
+	log.Printf("Server starting on %s", s.addr)
+	log.Fatal(http.ListenAndServe(s.addr, r))
+}
+
+func (s *Server) HelloWorld(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello, World!"))
 }

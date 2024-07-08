@@ -1,6 +1,8 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
   import { userStore } from "../../store/auth.store";
+  import { push } from "svelte-spa-router";
+  import type { EventHandler, FormEventHandler } from "svelte/elements";
 
   let username: string = "";
   let email: string = "";
@@ -8,30 +10,29 @@
   let password: string = "";
   let error: string = "";
   let isLoading: boolean = false;
+
   const register = async () => {
-    console.log("registering");
+    e.preventDefault();
     error = "";
     isLoading = true;
-    const { data, error: err } = await userStore.signUp({
+    const { error: err } = await userStore.signUp({
       username,
       email,
       displayName,
       password,
     });
     isLoading = false;
-    console.log(data, err);
     if (err) {
       console.log(err);
       error = err;
       return;
     }
-
-    window.location.href = "/";
+    push("/");
   };
 </script>
 
 <main>
-  <div class="auth-container">
+  <form class="auth-container" on:submit={register} >
     <h2 id="title">Biscord | Welcome back</h2>
     <p id="caption">We're excited to see you again!</p>
 
@@ -69,7 +70,7 @@
     <p id="auth-option">
       Already have an account? <a href="/" use:link>Login</a>
     </p>
-  </div>
+  </form>
 </main>
 
 <style>

@@ -15,8 +15,7 @@ type Config struct {
 	DBDatabase string
 	DBPort     uint16
 
-	JWTSecret              string
-	JWTExpirationInSeconds int64
+	JWTSecret string
 }
 
 var Envs = initConfig()
@@ -32,8 +31,7 @@ func initConfig() Config {
 		DBPassword: getEnv("DB_PASSWORD", "mypassword"),
 		DBPort:     uint16(5432),
 
-		JWTSecret:              getEnv("JWT_SECRET", " meoewmewo"),
-		JWTExpirationInSeconds: getEnvAsInt("JWT_EXPIRATION_IN_SECONDS", 3600*24*7),
+		JWTSecret: getEnv("JWT_SECRET", " meoewmewo"),
 	}
 }
 

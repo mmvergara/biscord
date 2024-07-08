@@ -74,12 +74,39 @@ func (r *UserRepo) DoesEmailExist(email string) (bool, error) {
 	return false, nil
 }
 
-func (r *UserRepo) GetUserByUsername(username string) (*model.User, error) {
-	rows, err := r.db.Query("SELECT * FROM users WHERE username = $1", username)
+func (r *UserRepo) GetUserByID(id model.UserID) (*model.User, error) {
+	rows, err := r.db.Query("SELECT * FROM users WHERE id = $1", id.String())
 
 	if err != nil {
 		log.Println(err)
-		return nil, fmt.Errorf("failed to get user by username")
+		return nil, fmt.Errorf("failed to get user by id")
+	}
+
+	defer rows.Close()
+
+	user := new(model.User)
+
+	for rows.Next() {
+		user, err = scanRowsIntoUser(rows)
+		if err != nil {
+			log.Println(err)
+			return nil, fmt.Errorf("failed to scan user")
+		}
+	}
+
+	if user.ID == uuid.Nil {
+		return nil, fmt.Errorf("user not found")
+	}
+
+	return user, nil
+}
+
+func (r *UserRepo) GetUserByEmail(email string) (*model.User, error) {
+	rows, err := r.db.Query("SELECT * FROM users WHERE email = $1", email)
+
+	if err != nil {
+		log.Println(err)
+		return nil, fmt.Errorf("failed to get user by email")
 	}
 
 	defer rows.Close()
@@ -101,12 +128,12 @@ func (r *UserRepo) GetUserByUsername(username string) (*model.User, error) {
 	return user, nil
 }
 
-func (r *UserRepo) GetUserByEmail(email string) (*model.User, error) {
-	rows, err := r.db.Query("SELECT * FROM users WHERE email = $1", email)
+func (r *UserRepo) GetUserByUsername(username string) (*model.User, error) {
+	rows, err := r.db.Query("SELECT * FROM users WHERE username = $1", username)
 
 	if err != nil {
 		log.Println(err)
-		return nil, fmt.Errorf("failed to get user by email")
+		return nil, fmt.Errorf("failed to get user by username")
 	}
 
 	defer rows.Close()
