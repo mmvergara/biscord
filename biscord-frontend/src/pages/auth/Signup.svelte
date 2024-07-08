@@ -1,22 +1,33 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
+  import { userStore } from "../../store/auth.store";
 
-  let email: string = "";
-  let password: string = "";
-  let displayName: string = "";
   let username: string = "";
-  let dateOfBirth: string = "";
-
-  function register() {
-    console.log("Registering...");
-    console.log({
-      email,
-      password,
-      displayName,
+  let email: string = "";
+  let displayName: string = "";
+  let password: string = "";
+  let error: string = "";
+  let isLoading: boolean = false;
+  const register = async () => {
+    console.log("registering");
+    error = "";
+    isLoading = true;
+    const { data, error: err } = await userStore.signUp({
       username,
-      dateOfBirth,
+      email,
+      displayName,
+      password,
     });
-  }
+    isLoading = false;
+    console.log(data, err);
+    if (err) {
+      console.log(err);
+      error = err;
+      return;
+    }
+
+    window.location.href = "/";
+  };
 </script>
 
 <main>
@@ -48,8 +59,12 @@
       id="password"
       type="password"
     />
-
-    <button on:click={register}>Register</button>
+    <p class="error-text">
+      {error}
+    </p>
+    <button on:click={register}>
+      {isLoading ? "Signing up..." : "Sign Up"}
+    </button>
 
     <p id="auth-option">
       Already have an account? <a href="/" use:link>Login</a>

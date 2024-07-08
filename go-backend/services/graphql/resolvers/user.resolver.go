@@ -13,7 +13,7 @@ import (
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	// Get User By ID
+	panic("not implemented")
 }
 
 // ID is the resolver for the id field.

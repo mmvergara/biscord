@@ -1,31 +1,32 @@
 // stores/userStore.ts
 import { writable } from "svelte/store";
-import axios from "axios";
 import { API_URL } from "../config";
-import { api } from "../lib/axios";
+import { post } from "../lib/axios";
+import type { SignInForm, SignUpForm } from "../types/formTypes";
 
-export type User = {
+export type UserData = {
+  sub: string;
   username: string;
+  displayName: string;
   exp: number;
-  userid: string;
 };
 
 function createUserStore() {
-  const { subscribe, set } = writable<User | null>(null);
+  const { subscribe, set } = writable<UserData | null>(null);
 
   // Load user from localStorage on initialization
   if (typeof window !== "undefined") {
     const storedUser = localStorage.getItem("user");
 
-    if (!storedUser) return;
-    const parsedUser = JSON.parse(storedUser);
-
-    // Check if token is expired
-    if (parsedUser.exp * 1000 < Date.now()) {
-      localStorage.removeItem("user");
-      return;
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      if (parsedUser) {
+        if (parsedUser.exp * 1000 < Date.now()) {
+          localStorage.removeItem("user");
+        }
+        set(JSON.parse(storedUser));
+      }
     }
-    set(JSON.parse(storedUser));
   }
 
   // Subscribe to changes and update localStorage
@@ -37,23 +38,22 @@ function createUserStore() {
 
   return {
     subscribe,
-    signIn: async (username: string, password: string) => {
-      const res = await api.post(API_URL + "auth/signin", {
-        username,
-        password,
-      });
-      console.log(res.data);
-      console.log(res.data);
-      console.log(res.data);
-      console.log(res.data);
-      set(res.data as User);
+    signIn: async (signInData: SignInForm) => {
+      const { data, error } = await post<SignInForm, UserData>(
+        API_URL + "auth/sign-in",
+        signInData,
+      );
+      if (error) {
+        console.log(error);
+        return;
+      }
+      if (data) set(data);
     },
-    signUp: async (username: string, password: string) => {
-      await api.post(API_URL + "auth/signup", { username, password });
-      console.log("Sign up successful");
+    signUp: async (signUpData: SignUpForm) => {
+      return await post(API_URL + "auth/sign-up", signUpData);
     },
     signOut: async () => {
-      await api.post(API_URL + "auth/signout", null);
+      await post(API_URL + "auth/sign-out", null);
       set(null);
     },
   };

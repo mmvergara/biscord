@@ -1,111 +1,111 @@
--- Clear
+DROP TABLE IF EXISTS reactions CASCADE;
+DROP TABLE IF EXISTS invites CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS channels CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS members CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS guilds CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Users table
-DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username VARCHAR(255) NOT NULL UNIQUE,
     display_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    avatar_url TEXT,
+    avatar_url TEXT NOT NULL DEFAULT 'https://cdn.discordapp.com/embed/avatars/0.png',
     is_bot BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    last_active_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    last_active_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Guilds table
-DROP TABLE IF EXISTS guilds;
 CREATE TABLE guilds (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(255) NOT NULL,
-    owner_id UUID NOT NULL REFERENCES users(id),
+    owner_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     icon_url TEXT,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Roles table
-DROP TABLE IF EXISTS roles;
 CREATE TABLE roles (
-    id UUID PRIMARY KEY,
-    guild_id UUID NOT NULL REFERENCES guilds(id),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    guild_id UUID NOT NULL REFERENCES guilds(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name VARCHAR(255) NOT NULL,
     color VARCHAR(7),
     permissions BIGINT NOT NULL,
     mentionable BOOLEAN NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Members table
-DROP TABLE IF EXISTS members;
 CREATE TABLE members (
-    id UUID PRIMARY KEY,
-    guild_id UUID NOT NULL REFERENCES guilds(id),
-    user_id UUID NOT NULL REFERENCES users(id),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    guild_id UUID NOT NULL REFERENCES guilds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     nickname VARCHAR(255),
-    joined_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    joined_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     UNIQUE (guild_id, user_id)
 );
 
 -- Categories table
-DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
-    id UUID PRIMARY KEY,
-    guild_id UUID NOT NULL REFERENCES guilds(id),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    guild_id UUID NOT NULL REFERENCES guilds(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name VARCHAR(255) NOT NULL,
     position INTEGER NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Channels table
-DROP TABLE IF EXISTS channels;
 CREATE TABLE channels (
-    id UUID PRIMARY KEY,
-    guild_id UUID NOT NULL REFERENCES guilds(id),
-    category_id UUID REFERENCES categories(id),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    guild_id UUID NOT NULL REFERENCES guilds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    category_id UUID REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(50) NOT NULL CHECK (type IN ('text', 'voice', 'announce')),
     position INTEGER NOT NULL,
     topic TEXT,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Messages table
-DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
-    id UUID PRIMARY KEY,
-    channel_id UUID NOT NULL REFERENCES channels(id),
-    author_id UUID NOT NULL REFERENCES users(id),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    channel_id UUID NOT NULL REFERENCES channels(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    author_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     content TEXT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 -- Reactions table
-DROP TABLE IF EXISTS reactions;
 CREATE TABLE reactions (
-    message_id UUID NOT NULL REFERENCES messages(id),
-    user_id UUID NOT NULL REFERENCES users(id),
+    message_id UUID NOT NULL REFERENCES messages(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     emoji VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     PRIMARY KEY (message_id, user_id, emoji)
 );
 
 -- Invites table
-DROP TABLE IF EXISTS invites;
 CREATE TABLE invites (
     code VARCHAR(255) PRIMARY KEY,
-    guild_id UUID NOT NULL REFERENCES guilds(id),
-    creator_id UUID NOT NULL REFERENCES users(id),
+    guild_id UUID NOT NULL REFERENCES guilds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    creator_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     expires_at TIMESTAMP WITH TIME ZONE,
     max_uses INTEGER,
     uses INTEGER NOT NULL DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );

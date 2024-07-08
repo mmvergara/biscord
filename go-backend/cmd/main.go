@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 
+	"github.com/mmvergara/biscord/go-backend/cmd/api"
 	db "github.com/mmvergara/biscord/go-backend/internal/database"
 )
 
@@ -29,5 +30,7 @@ func main() {
 		}
 		println(tableName)
 	}
+
+	api.NewServer("localhost:8080", conn).Run()
 
 }
