@@ -6,15 +6,6 @@ export const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
-/**
- * Sends a POST request to the specified URL with the given data and configuration.
- * @template TRequest The type of the request data.
- * @template TResponse The type of the response data.
- * @param {string} url The URL to send the request to.
- * @param {TRequest} data The data to send with the request.
- * @returns {Promise<TResponse>} A promise that resolves with the response data.
- * @throws {AxiosError} If the request fails.
- */
 export const post = async <TRequest, TResponse>(
   url: string,
   data: TRequest,

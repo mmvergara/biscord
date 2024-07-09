@@ -6,15 +6,18 @@
   import Signin from "./pages/auth/Signin.svelte";
   import Signup from "./pages/auth/Signup.svelte";
   import { derived } from "svelte/store";
+  import Layout from "./components/layout/layout.svelte";
 
   const isAuthenticated = derived(userStore, ($userStore) => !!$userStore);
   const publicRoutes = {
     "/": Signin,
     "/register": Signup,
+    "*": NotFound,
   };
 
   const privateRoutes = {
     "/": Home,
+    "*": NotFound,
   };
 
   $: {
@@ -23,7 +26,9 @@
 </script>
 
 {#if $isAuthenticated}
-  <Router routes={privateRoutes} />
+  <Layout>
+    <Router routes={privateRoutes} />
+  </Layout>
 {:else}
   <Router routes={publicRoutes} />
 {/if}
