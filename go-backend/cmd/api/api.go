@@ -48,13 +48,17 @@ func (s *Server) Run() {
 
 		r.Post("/auth/sign-in", authHandler.SignInHandler)
 		r.Post("/auth/sign-up", authHandler.SignUpHandler)
+		r.Post("/auth/sign-out", authHandler.SignOutHandler)
 
 		r.Group(func(r chi.Router) {
 			r.Use(authHandler.AuthMiddleware())
 			// r.Use(DataLoaderMiddleware)
+
+			r.Post("/auth/test", authHandler.AuthTestHandler)
 			r.Post("/graph", func(w http.ResponseWriter, r *http.Request) {
 				srv.ServeHTTP(w, r)
 			})
+
 		})
 	})
 

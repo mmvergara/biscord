@@ -161,10 +161,5 @@ func scanRowsIntoUser(rows *pgx.Rows) (*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println("Found user")
-	log.Println(user)
-	log.Println(user)
-	log.Println(user)
-	log.Println(user)
 	return &user, nil
 }

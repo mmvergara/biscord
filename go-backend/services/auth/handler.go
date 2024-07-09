@@ -95,6 +95,7 @@ func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 		UserID:      user.ID,
 		Username:    user.Username,
 		DisplayName: user.DisplayName,
+		Exp:         exp.Unix(),
 	}
 
 	SendResponse(w, http.StatusOK, res)
@@ -164,4 +165,9 @@ func (h *Handler) SignOutHandler(w http.ResponseWriter, r *http.Request) {
 		MaxAge:   -1,
 	})
 	SendResponse(w, http.StatusOK, nil)
+}
+
+func (h *Handler) AuthTestHandler(w http.ResponseWriter, r *http.Request) {
+	user := ForContext(r.Context())
+	SendResponse(w, http.StatusOK, user)
 }

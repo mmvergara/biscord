@@ -21,17 +21,11 @@ type contextKey struct {
 	name string
 }
 
-// A stand-in for our database backed user object
-type User struct {
-	Name    string
-	IsAdmin bool
-}
-
 // Middleware decodes the share session cookie and packs the session into context
 func (h *Handler) AuthMiddleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			c, err := r.Cookie("auth-cookie")
+			c, err := r.Cookie("jwt")
 
 			// Allow unauthenticated users in
 			if c == nil {
@@ -77,8 +71,8 @@ func (h *Handler) AuthMiddleware() func(http.Handler) http.Handler {
 }
 
 // ForContext finds the user from the context. REQUIRES Middleware to have run.
-func ForContext(ctx context.Context) *User {
-	raw, _ := ctx.Value(userCtxKey).(*User)
+func ForContext(ctx context.Context) *model.User {
+	raw, _ := ctx.Value(userCtxKey).(*model.User)
 	return raw
 }
 
@@ -122,8 +116,11 @@ func (h *Handler) createToken(userid model.UserID, username string, displayName 
 			"exp":         expires.Unix(),
 		})
 
-	tokenString, err := token.SignedString(config.Envs.JWTSecret)
+	tokenString, err := token.SignedString([]byte(config.Envs.JWTSecret))
 	if err != nil {
+		log.Println(err)
+		log.Println(err)
+		log.Println(err)
 		return "", expires, err
 	}
 
