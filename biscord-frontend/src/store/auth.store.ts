@@ -16,13 +16,13 @@ function createUserStore() {
 
   // Load user from localStorage on initialization
   if (typeof window !== "undefined") {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("biscord-user");
 
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       if (parsedUser) {
         if (parsedUser.exp * 1000 < Date.now()) {
-          localStorage.removeItem("user");
+          localStorage.removeItem("biscord-user");
         }
         set(JSON.parse(storedUser));
       }
@@ -32,7 +32,7 @@ function createUserStore() {
   // Subscribe to changes and update localStorage
   subscribe((value) => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("user", JSON.stringify(value));
+      localStorage.setItem("biscord-user", JSON.stringify(value));
     }
   });
 
