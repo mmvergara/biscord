@@ -2,18 +2,17 @@
   import { link } from "svelte-spa-router";
   import { userStore } from "../../store/auth.store";
   import { push } from "svelte-spa-router";
-  import type { EventHandler, FormEventHandler } from "svelte/elements";
 
   let username: string = "";
   let email: string = "";
   let displayName: string = "";
   let password: string = "";
-  let error: string = "";
+  let errorMessage: string = "";
   let isLoading: boolean = false;
 
-  const register = async () => {
+  const register = async (e: SubmitEvent) => {
     e.preventDefault();
-    error = "";
+    errorMessage = "";
     isLoading = true;
     const { error: err } = await userStore.signUp({
       username,
@@ -24,7 +23,7 @@
     isLoading = false;
     if (err) {
       console.log(err);
-      error = err;
+      errorMessage = err;
       return;
     }
     push("/");
@@ -32,7 +31,7 @@
 </script>
 
 <main>
-  <form class="auth-container" on:submit={register} >
+  <form class="auth-container" on:submit={register}>
     <h2 id="title">Biscord | Welcome back</h2>
     <p id="caption">We're excited to see you again!</p>
 
@@ -61,9 +60,9 @@
       type="password"
     />
     <p class="error-text">
-      {error}
+      {errorMessage}
     </p>
-    <button on:click={register}>
+    <button type="submit">
       {isLoading ? "Signing up..." : "Sign Up"}
     </button>
 

@@ -39,15 +39,12 @@ function createUserStore() {
   return {
     subscribe,
     signIn: async (signInData: SignInForm) => {
-      const { data, error } = await post<SignInForm, UserData>(
+      const res = await post<SignInForm, UserData>(
         API_URL + "auth/sign-in",
         signInData,
       );
-      if (error) {
-        console.log(error);
-        return;
-      }
-      if (data) set(data);
+      if (res.data) set(res.data);
+      return res;
     },
     signUp: async (signUpData: SignUpForm) => {
       return await post(API_URL + "auth/sign-up", signUpData);

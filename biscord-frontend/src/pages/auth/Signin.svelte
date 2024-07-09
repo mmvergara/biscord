@@ -1,20 +1,27 @@
 <script lang="ts">
-  import { link } from "svelte-spa-router";
+  import { link, replace } from "svelte-spa-router";
+  import { userStore } from "../../store/auth.store";
 
   let email: string = "";
   let password: string = "";
 
-  function login() {
-    console.log("Logging in...");
-    console.log({
-      email,
-      password,
-    });
-  }
+  let isLoading: boolean = false;
+  let errorMessage: string = "";
+
+  const login = async (e: SubmitEvent) => {
+    e.preventDefault();
+    isLoading = true;
+    const { error } = await userStore.signIn({ email, password });
+    isLoading = false;
+    if (error) {
+      errorMessage = error;
+      return;
+    }
+  };
 </script>
 
 <main>
-  <div class="auth-container">
+  <form class="auth-container" on:submit={login}>
     <h2 id="title">Biscord | Welcome back</h2>
     <p id="caption">We're excited to see you again!</p>
 
@@ -27,13 +34,18 @@
       <label for="password">PASSWORD</label>
       <input bind:value={password} id="password" type="password" />
       <a href="/forgot-password" id="forgot-password">Forgot your password?</a>
-
-      <button on:click={login}>Log In</button>
+      <p class="error-text">
+        {errorMessage}
+      </p>
+      <button type="submit">
+        {isLoading ? "Loading..." : "Sign in"}
+      </button>
     </form>
+
     <p id="auth-option">
       Don't have an account? <a href="/register" use:link>Register</a>
     </p>
-  </div>
+  </form>
 </main>
 
 <style>
