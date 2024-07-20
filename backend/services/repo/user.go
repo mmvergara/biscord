@@ -95,6 +95,7 @@ func (r *UserRepo) GetUserByID(id model.UserID) (*model.User, error) {
 	}
 
 	if user.ID == uuid.Nil {
+		log.Println("GetUserById: Could not find user")
 		return nil, fmt.Errorf("user not found")
 	}
 
@@ -122,6 +123,7 @@ func (r *UserRepo) GetUserByEmail(email string) (*model.User, error) {
 	}
 
 	if user.ID == uuid.Nil {
+		log.Println("GetUserByEmail: could not find user")
 		return nil, fmt.Errorf("user not found")
 	}
 
@@ -149,6 +151,7 @@ func (r *UserRepo) GetUserByUsername(username string) (*model.User, error) {
 	}
 
 	if user.ID == uuid.Nil {
+		log.Println("GetUserByUsername: Could not find user")
 		return nil, fmt.Errorf("user not found")
 	}
 

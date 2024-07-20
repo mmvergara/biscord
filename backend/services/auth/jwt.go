@@ -56,7 +56,7 @@ func (h *Handler) AuthMiddleware() func(http.Handler) http.Handler {
 			user, err := h.userRepo.GetUserByID(userID)
 			if err != nil {
 				log.Println(err)
-				SendErrorResponse(w, http.StatusForbidden, err.Error())
+				SendErrorResponse(w, http.StatusForbidden,"Error Occured") 
 				return
 			}
 

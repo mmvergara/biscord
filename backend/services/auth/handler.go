@@ -56,12 +56,14 @@ func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	// Get user by email
 	user, err := h.userRepo.GetUserByEmail(signInForm.Email)
 	if err != nil {
-		SendErrorResponse(w, http.StatusBadRequest, err.Error())
+		log.Println(err)
+		SendErrorResponse(w, http.StatusBadRequest, "Invalid Credentials")
 		return
 	}
 
 	// Compare password
 	if !ComparePasswords(user.Password, signInForm.Password) {
+		log.Println("Incorrect Password")
 		SendErrorResponse(w, http.StatusBadRequest, "Invalid Credentials")
 		return
 	}
