@@ -8,19 +8,17 @@
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 } */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root {
-  --bg-primary: #161a20;
-  --bg-secondary: #222831;
-  --text-primary: #eeeeee;
+
+
+.uniform-shadow {
+  filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.25));
 }
 
-body {
-  background-color: var(--bg-secondary);
-  color: #eeeeee;
-}
+
 .hidden {
   visibility: hidden;
 }

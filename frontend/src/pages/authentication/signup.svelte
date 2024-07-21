@@ -30,36 +30,80 @@
   };
 </script>
 
-<main class="flex justify-center items-center h-screen bg-[#76abae]">
-  <form class="max-w-[500px] w-full p-5 bg-[var(--bg-secondary)] rounded-md shadow-md flex flex-col" on:submit={register}>
-    <h2 class="text-center" id="title">Biscord | Welcome back</h2>
-    <p class="text-center text-[#96b1b3]" id="caption">We're excited to see you again!</p>
-
-    <!-- email -->
-    <label for="email" class="font-bold text-xs mt-3 mb-1 text-[#76abae]">EMAIL</label>
-    <input bind:value={email} class="bg-[var(--bg-primary)] p-4 font-bold text-[#76abae] outline-none border-none rounded-sm" id="email" type="email" />
-    
-    <!-- displayname -->
-    <label for="displayName" class="font-bold text-xs mt-3 mb-1 text-[#76abae]">DISPLAY NAME</label>
-    <input bind:value={displayName} class="bg-[var(--bg-primary)] p-4 font-bold text-[#76abae] outline-none border-none rounded-sm" id="displayName" type="text" />
-
-    <!-- username -->
-    <label for="username" class="font-bold text-xs mt-3 mb-1 text-[#76abae]">USERNAME</label>
-    <input bind:value={username} class="bg-[var(--bg-primary)] p-4 font-bold text-[#76abae] outline-none border-none rounded-sm" id="username" type="text" />
-
-    <!-- password -->
-    <label for="password" class="font-bold text-xs mt-3 mb-1 text-[#76abae]">PASSWORD</label>
-    <input bind:value={password} class="bg-[var(--bg-primary)] p-4 font-bold text-[#76abae] outline-none border-none rounded-sm" id="password" type="password" />
-    
-    <p class="text-red-500">
-      {errorMessage}
+<div class="flex justify-center items-center h-screen bg-black2">
+  <div
+    class="max-w-[550px] w-full p-8 bg-black3 rounded-md flex flex-col uniform-shadowa"
+  >
+    <h2 class="text-center text-lg font-bold" id="title">
+      Biscord | Create an account
+    </h2>
+    <p class="text-center text-gray-400 font-light" id="caption">
+      We're excited to have you join us!
     </p>
-    <button type="submit" class="bg-[#76abae] text-[var(--bg-secondary)] p-4 font-bold border-none rounded-sm cursor-pointer mt-5">
-      {isLoading ? "Signing up..." : "Sign Up"}
-    </button>
+
+    <form on:submit={register} class="flex flex-col w-full">
+      <!-- email -->
+      <label for="email" class="font-bold text-xs mt-5 mb-1 text-gray-300"
+        >EMAIL</label
+      >
+      <input
+        bind:value={email}
+        id="email"
+        type="email"
+        class="bg-black1 p-[0.7rem] text-sm outline-none border-none rounded-sm"
+      />
+
+      <!-- displayname -->
+      <label for="displayName" class="font-bold text-xs mt-5 mb-1 text-gray-300"
+        >DISPLAY NAME</label
+      >
+      <input
+        bind:value={displayName}
+        id="displayName"
+        type="text"
+        class="bg-black1 p-[0.7rem] text-sm outline-none border-none rounded-sm"
+      />
+
+      <!-- username -->
+      <label for="username" class="font-bold text-xs mt-5 mb-1 text-gray-300"
+        >USERNAME</label
+      >
+      <input
+        bind:value={username}
+        id="username"
+        type="text"
+        class="bg-black1 p-[0.7rem] text-sm outline-none border-none rounded-sm"
+      />
+
+      <!-- password -->
+      <label for="password" class="font-bold text-xs mt-5 mb-1 text-gray-300"
+        >PASSWORD</label
+      >
+      <input
+        bind:value={password}
+        id="password"
+        type="password"
+        class="bg-black1 p-[0.7rem] text-sm outline-none border-none rounded-sm"
+      />
+      
+      <p class="text-red-500">
+        {errorMessage}
+      </p>
+      <button
+        type="submit"
+        class="bg-[#76abae] p-[0.7rem] border-none rounded-sm cursor-pointer mt-5"
+      >
+        {isLoading ? "Signing Up" : "Sign Up"}
+      </button>
+    </form>
 
     <p class="mt-1 text-xs text-left">
-      Already have an account? <a href="/" use:link class="text-[#76abae] no-underline hover:underline">Login</a>
+      Already have an account?
+      <a 
+        href="/"
+        use:link
+        class="text-link no-underline hover:underline">Log In</a
+      >
     </p>
-  </form>
-</main>
+  </div>
+</div>
