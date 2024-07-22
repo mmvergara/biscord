@@ -3,7 +3,7 @@
 </script>
 
 <ul class="p-2 flex gap-1 flex-col">
-  <li class="bg-[#36373c] rounded-md text-gray-200">
+  <li class="hover:bg-blackHover rounded-md text-gray-200">
     <a
       href="/app/home/friends"
       class="flex gap-4 p-2 pl-3 py-[0.6rem]"
@@ -30,7 +30,7 @@
     </a>
   </li>
 
-  <li class="bg-[#36373c] rounded-md text-gray-200">
+  <li class="hover:bg-blackHover rounded-md text-gray-200">
     <a
       href="/app/home/friends"
       class="flex gap-4 p-2 pl-3 py-[0.6rem]"
@@ -62,7 +62,7 @@
       Nitro
     </a>
   </li>
-  <li class="bg-[#36373c] rounded-md text-gray-200">
+  <li class="hover:bg-blackHover rounded-md text-gray-200">
     <a
       href="/app/home/friends"
       class="flex gap-4 p-2 pl-3 py-[0.6rem]"

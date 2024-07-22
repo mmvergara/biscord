@@ -9,9 +9,8 @@ export default {
         black2: "#2c2d30",
         black3: "#323338",
         black4: "#35383d",
+        blackHover: "#36373c",
         link: "#3498db",
-
-        
       },
     },
   },

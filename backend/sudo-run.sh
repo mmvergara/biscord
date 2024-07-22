@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker-compose up -d;
+sudo docker-compose up -d;
 
-go run cmd//main.go;
- 
- 
+sudo go run cmd//main.go;
