@@ -1,23 +1,10 @@
-/* @font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url("./inter-latin-400-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-} */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 .uniform-shadow {
   filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.25));
 }
-
 
 .hidden {
   visibility: hidden;
@@ -26,4 +13,13 @@
 .error-text {
   margin: 5px 0;
   color: rgb(214, 36, 36);
+}
+
+*::-webkit-scrollbar {
+  width: 4px; /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #1e2326; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
 }

@@ -2,7 +2,7 @@
   import FriendsDm from "./friends-dm.svelte";
 </script>
 
-<section class="text-xs text-gray-400">
+<section class="text-xs text-gray-400 grow-1 flex-1 overflow-y-scroll">
   <article class="flex justify-between px-3 pt-3 hover:text-gray-200">
     <span> DIRECT MESSAGES </span>
     <svg
@@ -23,7 +23,17 @@
       ></path></svg
     >
   </article>
-  <ul class="p-2 flex gap-1 flex-col">
+  <ul class="p-2 flex gap-1 flex-col h-full">
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
+    <FriendsDm />
     <FriendsDm />
     <FriendsDm />
     <FriendsDm />

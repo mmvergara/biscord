@@ -1,0 +1,1 @@
+<section>Blocked Svelte</section>

@@ -9,6 +9,6 @@
   });
 </script>
 
-<aside class="bg-black2 w-[240px] fixed left-[72px] h-screen">
+<aside class="bg-black2 w-[240px] fixed left-[72px] h-screen flex flex-col">
   <HomeSidebar />
 </aside>
