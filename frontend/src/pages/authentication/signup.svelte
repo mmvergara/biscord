@@ -32,7 +32,7 @@
 
 <div class="flex justify-center items-center h-screen bg-black2">
   <div
-    class="max-w-[550px] w-full p-8 bg-black3 rounded-md flex flex-col uniform-shadowa"
+    class="max-w-[550px] w-full p-8 bg-black3 rounded-md flex flex-col uniform-shadow text-white"
   >
     <h2 class="text-center text-lg font-bold" id="title">
       Biscord | Create an account
@@ -85,24 +85,22 @@
         type="password"
         class="bg-black1 p-[0.7rem] text-sm outline-none border-none rounded-sm"
       />
-      
+
       <p class="text-red-500">
         {errorMessage}
       </p>
       <button
         type="submit"
-        class="bg-[#76abae] p-[0.7rem] border-none rounded-sm cursor-pointer mt-5"
+        class="bg-[#76abae] p-[0.7rem] border-none rounded-sm cursor-pointer mt-5 font-bold tracking-wide"
       >
-        {isLoading ? "Signing Up" : "Sign Up"}
+        {isLoading ? "Signing Up" : "Register"}
       </button>
     </form>
 
     <p class="mt-1 text-xs text-left">
       Already have an account?
-      <a 
-        href="/"
-        use:link
-        class="text-link no-underline hover:underline">Log In</a
+      <a href="/" use:link class="text-link no-underline hover:underline"
+        >Log In</a
       >
     </p>
   </div>

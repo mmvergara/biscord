@@ -1,1 +1,1 @@
-<section>All Section</section>
+All Section

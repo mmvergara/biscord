@@ -77,7 +77,7 @@
   </section>
   <!-- if -->
   <div class="flex h-[calc(100%-48px)]">
-    <section class="mr-auto">
+    <section class="grow p-4">
       {#if page === "ONLINE"}
         <Online />
       {:else if page === "ALL"}

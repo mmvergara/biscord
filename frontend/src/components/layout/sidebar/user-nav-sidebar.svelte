@@ -2,7 +2,7 @@
   import Avatar from "../../avatar.svelte";
 </script>
 
-<article class="h-[50px] bg-[#21252a] flex p-2 gap-4">
+<article class="h-[50px] bg-[#21252a] flex p-2 gap-1">
   <div class="w-[50%] flex gap-2 items-center">
     <Avatar
       status="online"
@@ -15,7 +15,7 @@
   </div>
 
   <ul class="flex items-center text-gray-400 gap-2 w-[50%] justify-around px-2">
-    <li>
+    <li class="hover:bg-zinc-700 p-1 rounded-sm cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
@@ -32,7 +32,7 @@
         /><line x1="12" x2="12" y1="19" y2="22" /></svg
       >
     </li>
-    <li>
+    <li class="hover:bg-zinc-700 p-1 rounded-sm cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
@@ -49,7 +49,7 @@
         /></svg
       >
     </li>
-    <li>
+    <li class="hover:bg-zinc-700 p-1 rounded-sm cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"

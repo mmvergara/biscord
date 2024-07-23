@@ -20,7 +20,7 @@
   };
 </script>
 
-<div class="flex justify-center items-center h-screen bg-black2">
+<div class="flex justify-center items-center h-screen bg-black2 text-white">
   <div
     class="max-w-[550px] w-full p-8 bg-black3 rounded-md flex flex-col uniform-shadow"
   >
@@ -63,7 +63,7 @@
       </p>
       <button
         type="submit"
-        class="bg-[#76abae] p-[0.7rem] border-none rounded-sm cursor-pointer mt-5"
+        class="bg-[#76abae] p-[0.7rem] border-none rounded-sm cursor-pointer mt-5 tracking-wide font-bold"
       >
         {isLoading ? "Logging In" : "Log In"}
       </button>
