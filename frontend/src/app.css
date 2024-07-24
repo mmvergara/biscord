@@ -9,6 +9,9 @@
 .hidden {
   visibility: hidden;
 }
+body {
+  color: white;
+}
 
 .error-text {
   margin: 5px 0;

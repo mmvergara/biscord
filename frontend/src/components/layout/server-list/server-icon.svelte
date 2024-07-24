@@ -1,11 +1,11 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
   export let imageUrl = "https://cdn.discordapp.com/embed/avatars/0.png";
-  export let serverId = "123456789";
+  export let guildId = "123456789";
 </script>
 
 <li class="server-item">
-  <a href={`/server/${serverId}`} class="server-link" use:link>
+  <a href={`/channels/${guildId}`} class="server-link" use:link>
     <div class="server-indicator"></div>
     <img src={imageUrl} alt="discord server icon" class="server-icon" />
   </a>

@@ -12,7 +12,7 @@
     {#each Array(13) as _}
       <ServerIcon
         imageUrl="https://cdn.discordapp.com/embed/avatars/0.png"
-        serverId="123456789"
+        guildId="123456789"
       />
     {/each}
   </ul>

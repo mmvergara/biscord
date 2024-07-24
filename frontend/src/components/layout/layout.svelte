@@ -1,5 +1,5 @@
 <script>
-  import ServerList from "./server-list/server-list.svelte";
+  import ServerList from "./server-list/guild-list.svelte";
   import Sidebar from "./sidebar/sidebar.svelte";
 </script>
 

@@ -34,7 +34,7 @@
       >
       <span class="text-gray-200 text-sm font-semibold">Friends</span>
     </div>
-    <div class="w-[1px] h-[25px] mx-3 bg-gray-700"></div>
+    <div class="w-[1px] h-[25px] mx-3 bg-blackDivider"></div>
     <ul class="flex list-none gap-4 text-sm tracking-wide text-gray-100">
       <li>
         <button
@@ -77,7 +77,7 @@
   </section>
   <!-- if -->
   <div class="flex h-[calc(100%-48px)]">
-    <section class="grow p-4">
+    <section class="grow p-4 px-8">
       {#if page === "ONLINE"}
         <Online />
       {:else if page === "ALL"}
@@ -90,7 +90,7 @@
     </section>
 
     <section
-      class="active-now-tab w-[360px] border-l-[1px] border-gray-700 p-4 h-full"
+      class="active-now-tab w-[405px] border-l-[1px] border-blackStripe p-4 h-full"
     >
       <ActiveNow />
     </section>

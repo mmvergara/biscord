@@ -1,8 +1,8 @@
-<div class="flex bg-black1 p-1 w-full px-2 mx-auto rounded-sm">
+<div class="flex bg-black0 p-[0.3rem] w-full px-2 mx-auto rounded-md">
   <input
     type="text"
     placeholder="Search"
-    class="bg-black1 w-full text-white outline-none"
+    class="bg-black0 w-full text-white outline-none text-sm"
   />
   <svg
     xmlns="http://www.w3.org/2000/svg"

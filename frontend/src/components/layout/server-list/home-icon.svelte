@@ -4,7 +4,7 @@
 </script>
 
 <li class="server-item">
-  <a href={`/home`} class="server-link" use:link>
+  <a href={`/channels/@me`} class="server-link" use:link>
     <div class="server-indicator"></div>
     <img src={imageUrl} alt="discord server icon" class="server-icon" />
   </a>
