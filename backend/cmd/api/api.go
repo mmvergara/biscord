@@ -42,7 +42,6 @@ func (s *Server) Run() {
 	srv := handler.NewDefaultServer(graph_generated.NewExecutableSchema(graph_generated.Config{Resolvers: &graph_resolvers.Resolver{}}))
 
 	r.Get("/", s.HelloWorld)
-
 	r.Route("/v1", func(r chi.Router) {
 		r.Get("/", playground.Handler("GraphQL playground", "/v1/graph").ServeHTTP)
 

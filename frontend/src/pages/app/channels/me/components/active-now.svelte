@@ -1,6 +1,5 @@
 <script>
     import Avatar from "../../../../../components/avatar.svelte";
-
 </script>
 
 <h2 class="text-white font-bold text-xl tracking-wide">Active Now</h2>
